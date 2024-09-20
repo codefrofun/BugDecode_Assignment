@@ -97,7 +97,7 @@ class Program
             // Move left, because sometimes left is right
             player.XVelocity = -1;
         }
-        else if (key == ConsoleKey.RightArrow && player.X < (width - 2))
+        else if (key == ConsoleKey.RightArrow)
         {
             // Move right, into the unknown
             player.XVelocity = 1;
@@ -125,7 +125,16 @@ class Program
         Console.Write(emptyChar);
 
         // This line uses modulo to make the player wrap around if he gets to the sides of the level, isn't it cool?
-        player.X = (((player.X + player.XVelocity) + width) - width) % 38;   //// Added the extra brackets and modded by the width (38)
+        /* this gives the player it’s positions on the sides of the screen and make sure that it can loop from one side to another. */
+        player.X = (((player.X + player.XVelocity) + width) - width); 
+        if (player.X == 38)
+        {
+            player.X = 1;
+        }
+        else if (player.X == 0)
+        {
+            player.X = 37;
+        }
 
         // Draw the player in the new position, ready for action
         Console.SetCursorPosition(player.X, player.Y);
